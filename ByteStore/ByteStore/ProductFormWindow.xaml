@@ -1,0 +1,200 @@
+﻿<Window x:Class="ByteStore.ProductFormWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ByteStore — Товар"
+        Height="650" Width="700"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#1A1D23"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#252A33"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#2F3540"/>
+            <Setter Property="Padding" Value="8,0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#252A33"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style TargetType="ComboBoxItem" x:Key="HoverStyle">
+            <Setter Property="Background" Value="#00FF88"/>
+            <Setter Property="Foreground" Value="#1A1D23"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   x:Name="txtTitle"
+                   Text="Добавить товар"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="#00FF88"
+                   Margin="0,0,0,20"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <Border Width="180" Height="180"
+                        Background="#252A33"
+                        CornerRadius="8"
+                        BorderBrush="#00FF88"
+                        BorderThickness="2"
+                        ClipToBounds="True">
+                    <Image x:Name="imgPhoto" Stretch="UniformToFill"/>
+                </Border>
+
+                <Button x:Name="btnChoosePhoto"
+                        Content="ВЫБРАТЬ ФОТО"
+                        Height="32"
+                        FontSize="11" FontWeight="Bold"
+                        Foreground="#00FF88"
+                        Background="Transparent"
+                        BorderBrush="#00FF88"
+                        BorderThickness="2"
+                        Cursor="Hand"
+                        Margin="0,10,0,0"
+                        Click="btnChoosePhoto_Click"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2">
+
+                <TextBlock Text="Артикул *" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtArticle"
+                         Height="32" FontSize="13" Padding="8,0"
+                         Foreground="#FFFFFF" Background="#252A33"
+                         BorderBrush="#2F3540" BorderThickness="1"
+                         CaretBrush="#00FF88" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Название *" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtName"
+                         Height="32" FontSize="13" Padding="8,0"
+                         Foreground="#FFFFFF" Background="#252A33"
+                         BorderBrush="#2F3540" BorderThickness="1"
+                         CaretBrush="#00FF88" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Категория *" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+                <ComboBox x:Name="cmbCategory" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Производитель" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+                <ComboBox x:Name="cmbManufacturer" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Поставщик" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,0"/>
+                <ComboBox x:Name="cmbSupplier"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="4">
+
+                <TextBlock Text="Цена закупки *" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtPurchasePrice"
+                         Height="32" FontSize="13" Padding="8,0"
+                         Foreground="#FFFFFF" Background="#252A33"
+                         BorderBrush="#2F3540" BorderThickness="1"
+                         CaretBrush="#00FF88" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Цена продажи *" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtSalePrice"
+                         Height="32" FontSize="13" Padding="8,0"
+                         Foreground="#FFFFFF" Background="#252A33"
+                         BorderBrush="#2F3540" BorderThickness="1"
+                         CaretBrush="#00FF88" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Количество *" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtQuantity"
+                         Height="32" FontSize="13" Padding="8,0"
+                         Foreground="#FFFFFF" Background="#252A33"
+                         BorderBrush="#2F3540" BorderThickness="1"
+                         CaretBrush="#00FF88" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Цвет" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtColor"
+                         Height="32" FontSize="13" Padding="8,0"
+                         Foreground="#FFFFFF" Background="#252A33"
+                         BorderBrush="#2F3540" BorderThickness="1"
+                         CaretBrush="#00FF88" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Гарантия (мес.)" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+                <TextBox x:Name="txtWarranty"
+                         Height="32" FontSize="13" Padding="8,0"
+                         Foreground="#FFFFFF" Background="#252A33"
+                         BorderBrush="#2F3540" BorderThickness="1"
+                         CaretBrush="#00FF88" Margin="0,0,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Margin="0,20,0,0">
+            <TextBlock Text="Описание" Foreground="#A0A8B8" FontSize="12" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtDescription"
+                     Height="70" FontSize="13" Padding="8,5"
+                     Foreground="#FFFFFF" Background="#252A33"
+                     BorderBrush="#2F3540" BorderThickness="1"
+                     CaretBrush="#00FF88"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     VerticalScrollBarVisibility="Auto"/>
+        </StackPanel>
+
+        <Grid Grid.Row="3" Margin="0,25,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    x:Name="btnCancel"
+                    Content="ОТМЕНА"
+                    Height="45"
+                    FontSize="14" FontWeight="Bold"
+                    Foreground="#A0A8B8"
+                    Background="Transparent"
+                    BorderBrush="#2F3540"
+                    BorderThickness="2"
+                    Cursor="Hand"
+                    Click="btnCancel_Click"/>
+
+            <Button Grid.Column="2"
+                    x:Name="btnSave"
+                    Content="СОХРАНИТЬ"
+                    Height="45"
+                    FontSize="14" FontWeight="Bold"
+                    Foreground="#1A1D23"
+                    Background="#00FF88"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Click="btnSave_Click"/>
+        </Grid>
+
+        <TextBlock Grid.Row="4"
+                   x:Name="txtMessage"
+                   Foreground="#A0A8B8"
+                   FontSize="12"
+                   TextAlignment="Center"
+                   Margin="0,15,0,0"/>
+    </Grid>
+</Window>

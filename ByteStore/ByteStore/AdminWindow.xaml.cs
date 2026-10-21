@@ -1,0 +1,175 @@
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+
+namespace ByteStore
+{
+    public partial class AdminWindow : Window
+    {
+        private readonly HttpClient _http = new HttpClient
+        {
+            BaseAddress = new Uri("https://localhost:7121/")
+        };
+
+        private string _token;
+        private string _fullName;
+
+        public AdminWindow(string token, string fullName)
+        {
+            InitializeComponent();
+
+            _token = token;
+            _fullName = fullName;
+
+            txtUserInfo.Text = fullName;
+
+            _http.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", _token);
+
+            Loaded += async (s, e) => await LoadStatsAsync();
+        }
+
+        private void txtUserInfo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ProfileWindow profile = new ProfileWindow(_token);
+            profile.ShowDialog();
+        }
+
+        private void btnChat_Click(object sender, RoutedEventArgs e)
+        {
+            int myId = GetMyUserIdFromToken(_token);
+            ChatWindow chat = new ChatWindow(_token, myId);
+            chat.ShowDialog();
+        }
+
+        private int GetMyUserIdFromToken(string token)
+        {
+            try
+            {
+                string[] parts = token.Split('.');
+                string payload = parts[1];
+
+                int mod4 = payload.Length % 4;
+                if (mod4 > 0)
+                {
+                    payload += new string('=', 4 - mod4);
+                }
+
+                byte[] data = Convert.FromBase64String(payload.Replace('-', '+').Replace('_', '/'));
+                string json = System.Text.Encoding.UTF8.GetString(data);
+
+                using (JsonDocument doc = JsonDocument.Parse(json))
+                {
+                    JsonElement root = doc.RootElement;
+
+                    if (root.TryGetProperty("nameidentifier", out JsonElement idElement))
+                    {
+                        return int.Parse(idElement.GetString());
+                    }
+
+                    foreach (JsonProperty prop in root.EnumerateObject())
+                    {
+                        if (prop.Name.EndsWith("nameidentifier"))
+                        {
+                            return int.Parse(prop.Value.GetString());
+                        }
+                    }
+                }
+            }
+            catch { }
+
+            return 0;
+        }
+
+        private async Task LoadStatsAsync()
+        {
+            try
+            {
+                var productsResp = await _http.GetAsync("api/products");
+                if (productsResp.IsSuccessStatusCode)
+                {
+                    JsonElement arr = await productsResp.Content.ReadFromJsonAsync<JsonElement>();
+                    txtTotalProducts.Text = arr.GetArrayLength().ToString();
+                }
+
+                var lowResp = await _http.GetAsync("api/reports/low-stock");
+                if (lowResp.IsSuccessStatusCode)
+                {
+                    JsonElement arr = await lowResp.Content.ReadFromJsonAsync<JsonElement>();
+                    txtLowStock.Text = arr.GetArrayLength().ToString();
+                }
+
+                var usersResp = await _http.GetAsync("api/users");
+                if (usersResp.IsSuccessStatusCode)
+                {
+                    JsonElement arr = await usersResp.Content.ReadFromJsonAsync<JsonElement>();
+                    txtTotalUsers.Text = arr.GetArrayLength().ToString();
+                }
+
+                var ordersResp = await _http.GetAsync("api/orders");
+                if (ordersResp.IsSuccessStatusCode)
+                {
+                    JsonElement arr = await ordersResp.Content.ReadFromJsonAsync<JsonElement>();
+                    txtTotalOrders.Text = arr.GetArrayLength().ToString();
+                }
+
+                txtMessage.Text = "Статистика загружена.";
+                txtMessage.Foreground = System.Windows.Media.Brushes.LightGreen;
+            }
+            catch (Exception ex)
+            {
+                txtMessage.Text = "Не удалось загрузить статистику.";
+                MessageBox.Show(ex.Message, "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnProducts_Click(object sender, RoutedEventArgs e)
+        {
+            CatalogWindow catalog = new CatalogWindow(_token, "Администратор", _fullName);
+            catalog.Show();
+        }
+
+        private void btnUsers_Click(object sender, RoutedEventArgs e)
+        {
+            UsersWindow users = new UsersWindow(_token, _fullName);
+            users.ShowDialog();
+
+            _ = LoadStatsAsync();
+        }
+
+        private void btnCategories_Click(object sender, RoutedEventArgs e)
+        {
+            CategoriesWindow cats = new CategoriesWindow(_token, _fullName);
+            cats.ShowDialog();
+
+            _ = LoadStatsAsync();
+        }
+
+        private void btnOrders_Click(object sender, RoutedEventArgs e)
+        {
+            OrdersWindow orders = new OrdersWindow(_token, _fullName);
+            orders.ShowDialog();
+
+            _ = LoadStatsAsync();
+        }
+
+        private void btnReports_Click(object sender, RoutedEventArgs e)
+        {
+            ReportsWindow reports = new ReportsWindow(_token, _fullName);
+            reports.ShowDialog();
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWin = new MainWindow();
+            mainWin.Show();
+            this.Close();
+        }
+    }
+}

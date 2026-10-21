@@ -1,0 +1,171 @@
+﻿<Window x:Class="ByteStore.ReportsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ByteStore — Отчёты"
+        Height="650" Width="1050"
+        WindowStartupLocation="CenterScreen"
+        Background="#1A1D23"
+        FontFamily="Segoe UI">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Text="Отчёты"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       Foreground="#00FF88"
+                       VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Column="1"
+                       x:Name="txtUserInfo"
+                       Foreground="#A0A8B8"
+                       FontSize="13"
+                       VerticalAlignment="Center"/>
+        </Grid>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0,20,0,15">
+
+            <Button x:Name="btnSales"
+                    Content="ПРОДАЖИ ЗА ПЕРИОД"
+                    Width="180" Height="40"
+                    FontSize="12" FontWeight="Bold"
+                    Foreground="#1A1D23"
+                    Background="#00FF88"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Margin="0,0,10,0"
+                    Click="btnSales_Click"/>
+
+            <Button x:Name="btnLowStock"
+                    Content="ТОВАРЫ НА ИСХОДЕ"
+                    Width="180" Height="40"
+                    FontSize="12" FontWeight="Bold"
+                    Foreground="#00FF88"
+                    Background="Transparent"
+                    BorderBrush="#00FF88"
+                    BorderThickness="2"
+                    Cursor="Hand"
+                    Margin="0,0,10,0"
+                    Click="btnLowStock_Click"/>
+
+            <Button x:Name="btnTopProducts"
+                    Content="ТОП ТОВАРОВ"
+                    Width="180" Height="40"
+                    FontSize="12" FontWeight="Bold"
+                    Foreground="#00FF88"
+                    Background="Transparent"
+                    BorderBrush="#00FF88"
+                    BorderThickness="2"
+                    Cursor="Hand"
+                    Click="btnTopProducts_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    x:Name="panelPeriod"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,15"
+                    Visibility="Collapsed">
+
+            <TextBlock Text="Период с:"
+                       Foreground="#A0A8B8"
+                       FontSize="13"
+                       VerticalAlignment="Center"
+                       Margin="0,0,8,0"/>
+
+            <DatePicker x:Name="dpFrom"
+                        Width="140"
+                        Height="32"
+                        FontSize="13"
+                        Margin="0,0,15,0"/>
+
+            <TextBlock Text="по:"
+                       Foreground="#A0A8B8"
+                       FontSize="13"
+                       VerticalAlignment="Center"
+                       Margin="0,0,8,0"/>
+
+            <DatePicker x:Name="dpTo"
+                        Width="140"
+                        Height="32"
+                        FontSize="13"
+                        Margin="0,0,15,0"/>
+
+            <Button x:Name="btnApplyPeriod"
+                    Content="ПОКАЗАТЬ"
+                    Width="120" Height="32"
+                    FontSize="12" FontWeight="Bold"
+                    Foreground="#1A1D23"
+                    Background="#00FF88"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Click="btnApplyPeriod_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="3"
+                  x:Name="dgReport"
+                  AutoGenerateColumns="True"
+                  IsReadOnly="True"
+                  Background="#252A33"
+                  Foreground="#FFFFFF"
+                  RowBackground="#252A33"
+                  AlternatingRowBackground="#2F3540"
+                  BorderBrush="#2F3540"
+                  BorderThickness="1"
+                  GridLinesVisibility="Horizontal"
+                  HorizontalGridLinesBrush="#1A1D23"
+                  HeadersVisibility="Column"
+                  FontSize="12"
+                  RowHeight="28">
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#1A1D23"/>
+                    <Setter Property="Foreground" Value="#00FF88"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Padding" Value="10,8"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+
+        <Border Grid.Row="4"
+                Background="#252A33"
+                CornerRadius="8"
+                Padding="15"
+                Margin="0,15,0,0">
+            <TextBlock x:Name="txtSummary"
+                       Foreground="#00FF88"
+                       FontSize="14"
+                       FontWeight="Bold"/>
+        </Border>
+
+        <Button Grid.Row="5"
+                x:Name="btnBack"
+                Content="НАЗАД"
+                Width="150" Height="40"
+                FontSize="13" FontWeight="Bold"
+                Foreground="#A0A8B8"
+                Background="Transparent"
+                BorderBrush="#2F3540"
+                BorderThickness="2"
+                Cursor="Hand"
+                HorizontalAlignment="Left"
+                Margin="0,15,0,0"
+                Click="btnBack_Click"/>
+    </Grid>
+</Window>

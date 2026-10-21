@@ -1,0 +1,135 @@
+﻿<Window x:Class="ByteStore.UsersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ByteStore — Сотрудники"
+        Height="600" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        Background="#1A1D23"
+        FontFamily="Segoe UI">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Text="Сотрудники"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       Foreground="#00FF88"
+                       VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Column="1"
+                       x:Name="txtUserInfo"
+                       Foreground="#A0A8B8"
+                       FontSize="13"
+                       VerticalAlignment="Center"/>
+        </Grid>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0,20,0,15">
+
+            <Button x:Name="btnRefresh"
+                    Content="ОБНОВИТЬ"
+                    Width="120" Height="35"
+                    FontSize="12" FontWeight="Bold"
+                    Foreground="#00FF88"
+                    Background="Transparent"
+                    BorderBrush="#00FF88"
+                    BorderThickness="2"
+                    Cursor="Hand"
+                    Margin="0,0,10,0"
+                    Click="btnRefresh_Click"/>
+
+            <Button x:Name="btnChangeRole"
+                    Content="СМЕНИТЬ РОЛЬ"
+                    Width="150" Height="35"
+                    FontSize="12" FontWeight="Bold"
+                    Foreground="#1A1D23"
+                    Background="#00FF88"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Margin="0,0,10,0"
+                    Click="btnChangeRole_Click"/>
+
+            <Button x:Name="btnDelete"
+                    Content="УДАЛИТЬ"
+                    Width="120" Height="35"
+                    FontSize="12" FontWeight="Bold"
+                    Foreground="#FF4A6E"
+                    Background="Transparent"
+                    BorderBrush="#FF4A6E"
+                    BorderThickness="2"
+                    Cursor="Hand"
+                    Click="btnDelete_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="2"
+                  x:Name="dgUsers"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  Background="#252A33"
+                  Foreground="#FFFFFF"
+                  RowBackground="#252A33"
+                  AlternatingRowBackground="#2F3540"
+                  BorderBrush="#2F3540"
+                  BorderThickness="1"
+                  GridLinesVisibility="Horizontal"
+                  HorizontalGridLinesBrush="#1A1D23"
+                  HeadersVisibility="Column"
+                  FontSize="12"
+                  RowHeight="30">
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#1A1D23"/>
+                    <Setter Property="Foreground" Value="#00FF88"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Padding" Value="8,8"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"       Binding="{Binding Id}"          Width="50"/>
+                <DataGridTextColumn Header="Фамилия"  Binding="{Binding LastName}"    Width="150"/>
+                <DataGridTextColumn Header="Имя"      Binding="{Binding FirstName}"   Width="130"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleName}"  Width="150"/>
+                <DataGridTextColumn Header="Email"    Binding="{Binding Email}"       Width="200"/>
+                <DataGridTextColumn Header="Телефон"  Binding="{Binding Phone}"       Width="150"/>
+                <DataGridTextColumn Header="Роль"     Binding="{Binding Role}"        Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Grid.Row="3"
+                   x:Name="txtMessage"
+                   Foreground="#A0A8B8"
+                   FontSize="12"
+                   Margin="0,10,0,0"/>
+
+        <Button Grid.Row="4"
+                x:Name="btnBack"
+                Content="НАЗАД"
+                Width="150" Height="40"
+                FontSize="13" FontWeight="Bold"
+                Foreground="#A0A8B8"
+                Background="Transparent"
+                BorderBrush="#2F3540"
+                BorderThickness="2"
+                Cursor="Hand"
+                HorizontalAlignment="Left"
+                Margin="0,15,0,0"
+                Click="btnBack_Click"/>
+    </Grid>
+</Window>
